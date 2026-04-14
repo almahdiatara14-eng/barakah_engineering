@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Barakah Engineering</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+    --bg:#07130f;
+    --bg2:#0c1d17;
+    --card:rgba(255,255,255,0.08);
+    --card-border:rgba(255,255,255,0.12);
+    --text:#f4f7f5;
+    --muted:#b6c2bc;
+    --primary:#11a36a;
+    --primary2:#0f7d51;
+    --accent:#f5c542;
+    --shadow:0 20px 60px rgba(0,0,0,0.35);
+    --radius:22px;
+}
+body.light{
+    --bg:#f6f8f7;
+    --bg2:#eef3f0;
+    --card:rgba(255,255,255,0.78);
+    --card-border:rgba(0,0,0,0.08);
+    --text:#102019;
+    --muted:#51615a;
+    --shadow:0 20px 50px rgba(15,31,24,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+html{scroll-behavior:smooth;}
+body{
+    background:
+        radial-gradient(circle at top left, rgba(17,163,106,0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(245,197,66,0.18), transparent 25%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    color:var(--text);
+    overflow-x:hidden;
+}
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(circle at center, black 45%, transparent 100%);
+    opacity:0.25;
+}
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    opacity:0.75;
+}
+.progress{
+    position:fixed; top:0; left:0; height:4px; width:0%;
+    z-index:5000;
+    background:linear-gradient(90deg, var(--primary), var(--accent));
+    box-shadow:0 0 18px rgba(17,163,106,0.5);
+}
+.navbar{
+    position:sticky; top:0; z-index:2000;
+    backdrop-filter:blur(18px);
+    background:rgba(10,20,16,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+body.light .navbar{background:rgba(255,255,255,0.65);}
+.navbar-inner{
+    max-width:1200px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+}
+.brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:0.3px;}
+.brand-badge{
+    width:42px; height:42px; border-radius:14px; display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--primary), var(--primary2));
+    box-shadow:0 10px 25px rgba(17,163,106,0.28); color:white;
+}
+.brand h1{font-size:1rem;}
+.brand span{display:block; font-size:0.78rem; font-weight:500; color:var(--muted); margin-top:2px;}
+.nav-links{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.nav-links a{
+    color:var(--text); text-decoration:none; font-size:0.95rem; opacity:0.86; transition:0.25s ease;
+}
+.nav-links a:hover{color:var(--accent); opacity:1;}
+.theme-btn,.menu-btn{
+    border:none; cursor:pointer; background:var(--card); color:var(--text);
+    border:1px solid var(--card-border); width:44px; height:44px; border-radius:14px; box-shadow:var(--shadow);
+}
+.menu-btn{display:none;}
+.hero{
+    max-width:1200px; margin:0 auto; padding:70px 24px 30px;
+    min-height:calc(100vh - 90px);
+    display:grid; grid-template-columns:1.2fr 0.8fr; gap:28px; align-items:center;
+    position:relative; z-index:1;
+}
+.kicker{
+    display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px;
+    background:rgba(17,163,106,0.14); border:1px solid rgba(17,163,106,0.26); margin-bottom:18px; font-size:0.92rem;
+}
+.hero h2{
+    font-size:clamp(2.4rem, 5vw, 4.6rem); line-height:1.02; letter-spacing:-0.04em; margin-bottom:18px;
+}
+.hero h2 .accent{
+    background:linear-gradient(90deg, var(--accent), #ffe79a);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p{max-width:640px; font-size:1.05rem; line-height:1.8; color:var(--muted); margin-bottom:26px;}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:26px;}
+.btn{
+    display:inline-flex; align-items:center; gap:10px; border:none; cursor:pointer; text-decoration:none;
+    padding:13px 20px; border-radius:16px; font-weight:700; transition:0.25s ease;
+}
+.btn-primary{
+    background:linear-gradient(135deg, var(--primary), var(--primary2)); color:white;
+    box-shadow:0 14px 30px rgba(17,163,106,0.22);
+}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-secondary{background:var(--card); color:var(--text); border:1px solid var(--card-border);}
+.btn-secondary:hover{transform:translateY(-2px); border-color:rgba(245,197,66,0.5);}
+.hero-stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; max-width:620px;}
+.stat{
+    padding:16px; border-radius:18px; background:var(--card); border:1px solid var(--card-border); box-shadow:var(--shadow);
+}
+.stat strong{display:block; font-size:1.25rem; margin-bottom:4px;}
+.stat span{font-size:0.9rem; color:var(--muted);}
+.hero-panel{position:relative;}
+.hero-card{
+    padding:24px; border-radius:28px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+    border:1px solid var(--card-border); box-shadow:var(--shadow); backdrop-filter:blur(18px);
+}
+.hero-card-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;}
+.pill{padding:8px 12px; border-radius:999px; background:rgba(245,197,66,0.14); color:var(--accent); font-size:0.85rem; font-weight:700;}
+.mini-list{display:grid; gap:12px; margin-top:18px;}
+.mini-item{
+    padding:14px 16px; border-radius:16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+    display:flex; align-items:center; gap:12px;
+}
+.mini-item i{color:var(--primary);}
+.floating-orb{position:absolute; border-radius:50%; filter:blur(18px); opacity:0.5; pointer-events:none;}
+.orb1{width:220px; height:220px; background:rgba(17,163,106,0.28); top:-35px; right:-20px; animation:float 8s ease-in-out infinite;}
+.orb2{width:160px; height:160px; background:rgba(245,197,66,0.18); left:-20px; bottom:10px; animation:float 10s ease-in-out infinite reverse;}
+.pattern-header{
+    position:relative; overflow:hidden; min-height:160px; border-radius:28px; margin-top:22px;
+    border:1px solid var(--card-border);
+    background:
+        radial-gradient(circle at center, rgba(17,163,106,0.18), transparent 58%),
+        linear-gradient(135deg, rgba(15,61,46,0.85), rgba(7,19,15,0.92));
+    box-shadow:var(--shadow);
+}
+.pattern-header::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+        linear-gradient(45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(245,197,66,0.18) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(245,197,66,0.18) 75%);
+    background-size:34px 34px;
+    background-position:0 0, 0 17px, 17px -17px, -17px 0px;
+    opacity:0.22;
+    animation:patternMove 24s linear infinite;
+}
+.pattern-header::after{
+    content:"";
+    position:absolute;
+    inset:-20%;
+    background:radial-gradient(circle, rgba(245,197,66,0.16) 0%, transparent 55%);
+    animation:glowPulse 6s ease-in-out infinite;
+}
+.pattern-content{
+    position:relative; z-index:2; padding:26px; height:100%;
+    display:flex; flex-direction:column; justify-content:center; gap:10px;
+}
+.pattern-content h3{font-size:1.2rem;}
+.pattern-content p{color:rgba(255,255,255,0.78); line-height:1.7;}
+section{
+    max-width:1200px; margin:0 auto; padding:72px 24px; position:relative; z-index:1;
+}
+.section-title{margin-bottom:22px; font-size:clamp(1.8rem, 3vw, 2.6rem); letter-spacing:-0.03em;}
+.section-subtitle{color:var(--muted); max-width:760px; line-height:1.8; margin-bottom:26px;}
+.grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:18px;}
+.card{
+    padding:24px; border-radius:var(--radius); background:var(--card); border:1px solid var(--card-border);
+    box-shadow:var(--shadow); backdrop-filter:blur(16px); transition:0.28s ease;
+}
+.card:hover{transform:translateY(-6px); border-color:rgba(245,197,66,0.35);}
+.card h3{margin-bottom:10px; font-size:1.1rem;}
+.card p{color:var(--muted); line-height:1.8; font-size:0.97rem;}
+.feature-icon{
+    width:48px; height:48px; border-radius:16px; display:grid; place-items:center; margin-bottom:16px;
+    background:rgba(17,163,106,0.14); color:var(--primary); font-size:1.1rem;
+}
+.two-col{display:grid; grid-template-columns:1.1fr 0.9fr; gap:18px;}
+.blog-list{display:grid; gap:14px;}
+.blog-item{
+    display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 18px;
+    border-radius:18px; background:rgba(255,255,255,0.06); border:1px solid var(--card-border);
+}
+.blog-item span{color:var(--muted); font-size:0.92rem;}
+.contact-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:18px;}
+.socials{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;}
+.socials a{
+    display:inline-flex; align-items:center; gap:10px; text-decoration:none; padding:12px 16px; border-radius:14px;
+    background:rgba(255,255,255,0.06); border:1px solid var(--card-border); color:var(--text);
+    transition:0.25s ease;
+}
+.socials a:hover{transform:translateY(-3px) scale(1.03); border-color:rgba(245,197,66,0.6);}
+form{display:grid; gap:14px;}
+label{font-size:0.92rem; color:var(--muted);}
+input, textarea{
+    width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--card-border);
+    background:rgba(255,255,255,0.06); color:var(--text); outline:none;
+}
+input:focus, textarea:focus{border-color:rgba(17,163,106,0.65); box-shadow:0 0 0 4px rgba(17,163,106,0.12);}
+textarea{resize:vertical; min-height:150px;}
+.footer{padding:28px 24px 40px; text-align:center; color:var(--muted);}
+.toast{
+    position:fixed; right:20px; bottom:20px; z-index:5000; padding:14px 18px; border-radius:16px;
+    background:rgba(17,163,106,0.95); color:white; box-shadow:0 18px 40px rgba(0,0,0,0.25);
+    transform:translateY(20px); opacity:0; pointer-events:none; transition:0.35s ease;
+}
+.toast.show{transform:translateY(0); opacity:1;}
+.mobile-drawer{
+    display:none;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px 18px;
+}
+.mobile-drawer.open{display:block;}
+.mobile-drawer a{
+    display:block;
+    padding:12px 0;
+    color:var(--text);
+    text-decoration:none;
+    border-top:1px solid var(--card-border);
+}
+.mobile-drawer a:last-child{border-bottom:1px solid var(--card-border);}
+.panel-tools{
+    margin-top:16px;
+    display:grid;
+    gap:12px;
+}
+.tool-row{
+    display:grid;
+    grid-template-columns:1fr 120px;
+    gap:10px;
+}
+.tool-row button{
+    white-space:nowrap;
+}
+.tool-output{
+    margin-top:8px;
+    padding:14px 16px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--card-border);
+    color:var(--text);
+    min-height:52px;
+}
+.ai-fab{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:4500;
+    border:none;
+    cursor:pointer;
+    width:62px;
+    height:62px;
+    border-radius:20px;
+    background:linear-gradient(135deg, var(--primary), var(--primary2));
+    color:white;
+    box-shadow:0 18px 40px rgba(0,0,0,0.32);
+}
+.chat-widget{
+    position:fixed;
+    right:18px;
+    bottom:92px;
+    z-index:4500;
+    width:min(360px, calc(100vw - 36px));
+    display:none;
+    border-radius:24px;
+    background:rgba(10,20,16,0.92);
+    border:1px solid var(--card-border);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    backdrop-filter:blur(20px);
+}
+body.light .chat-widget{background:rgba(255,255,255,0.95);}
+.chat-widget.open{display:block;}
+.chat-head{
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:linear-gradient(135deg, rgba(17,163,106,0.22), rgba(245,197,66,0.10));
+    border-bottom:1px solid var(--card-border);
+}
+.chat-head strong{display:block;}
+.chat-head span{font-size:0.84rem; color:var(--muted);}
+.chat-messages{
+    height:260px;
+    overflow:auto;
+    padding:16px;
+    display:grid;
+    gap:12px;
+}
+.msg{
+    max-width:85%;
+    padding:12px 14px;
+    border-radius:16px;
+    line-height:1.6;
+    font-size:0.94rem;
+}
+.msg.bot{
+    background:rgba(17,163,106,0.14);
+    border:1px solid rgba(17,163,106,0.22);
+}
+.msg.user{
+    margin-left:auto;
+    background:rgba(255,255,255,0.08);
+    border:1px solid var(--card-border);
+}
+.chat-input{
+    display:flex;
+    gap:10px;
+    padding:14px;
+    border-top:1px solid var(--card-border);
+}
+.chat-input input{
+    flex:1;
+}
+.quick-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    padding:0 16px 12px;
+}
+.quick-tags button{
+    border:none;
+    cursor:pointer;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.08);
+    color:var(--text);
+    border:1px solid var(--card-border);
+}
+.loader{
+    position:fixed;
+    inset:0;
+    z-index:7000;
+    background:
+        radial-gradient(circle at center, rgba(17,163,106,0.18), transparent 55%),
+        linear-gradient(180deg, #040b08, #091612);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:18px;
+    transition:opacity 0.8s ease, visibility 0.8s ease;
+}
+.loader.hide{opacity:0; visibility:hidden;}
+.spinner{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    border:5px solid rgba(255,255,255,0.18);
+    border-top-color:var(--accent);
+    animation:spin 1s linear infinite;
+}
+.loader h2{
+    font-size:1.35rem;
+    letter-spacing:0.03em;
+}
+.loader p{color:#cfd7d2;}
+.intro{
+    position:fixed;
+    inset:0;
+    z-index:6500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:linear-gradient(135deg, rgba(7,19,15,0.95), rgba(15,61,46,0.86));
+}
+.intro.show{display:flex;}
+.intro-card{
+    width:min(720px, calc(100vw - 32px));
+    padding:28px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid var(--card-border);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(18px);
+}
+.intro-card h1{
+    font-size:clamp(2rem, 5vw, 4rem);
+    margin-bottom:10px;
+}
+.intro-card p{
+    color:rgba(255,255,255,0.78);
+    line-height:1.8;
+    margin-bottom:18px;
+}
+.intro-actions{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.type-line{
+    display:inline-block;
+    border-right:2px solid rgba(255,255,255,0.8);
+    white-space:nowrap;
+    overflow:hidden;
+    animation:caret 0.8s step-end infinite;
+}
+@keyframes caret{50%{border-color:transparent;}}
+@keyframes float{0%,100%{transform:translateY(0px);}50%{transform:translateY(-14px);}}
+@keyframes patternMove{
+    from{background-position:0 0, 0 17px, 17px -17px, -17px 0px;}
+    to{background-position:180px 180px, 180px 197px, 197px 163px, 163px 180px;}
+}
+@keyframes glowPulse{0%,100%{transform:scale(1); opacity:0.7;} 50%{transform:scale(1.08); opacity:1;}}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media (max-width:980px){
+    .hero, .two-col, .contact-grid{grid-template-columns:1fr;}
+    .hero{padding-top:40px;}
+    .nav-links{display:none;}
+    .menu-btn{display:inline-grid; place-items:center;}
+}
+@media (max-width:640px){
+    .navbar-inner{flex-wrap:wrap;}
+    .hero-stats{grid-template-columns:1fr;}
+    .tool-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <h2>Barakah Engineering</h2>
+    <p>Loading a faith-driven experience...</p>
+</div>
+
+<div class="intro" id="intro">
+    <div class="intro-card">
+        <h1><span class="type-line" id="introText"></span></h1>
+        <p>Building with Barakah, Guided by Faith</p>
+        <div class="intro-actions">
+            <button class="btn btn-primary" onclick="enterSite()"><i class="fa-solid fa-door-open"></i> Enter Website</button>
+            <button class="btn btn-secondary" onclick="skipIntro()"><i class="fa-solid fa-forward"></i> Skip Intro</button>
+        </div>
+    </div>
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="toast" id="toast">Message sent successfully.</div>
+
+<button class="ai-fab" id="aiFab" aria-label="Open Barakah AI" onclick="toggleChat()">
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+</button>
+
+<div class="chat-widget" id="chatWidget" aria-live="polite">
+    <div class="chat-head">
+        <div>
+            <strong>Barakah AI</strong>
+            <span>Local helper for the website</span>
+        </div>
+        <button class="theme-btn" style="width:38px;height:38px;border-radius:12px;" onclick="toggleChat()" aria-label="Close chat">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">Assalamu alaikum. I can explain the site, the sections, or help with your presentation.</div>
+    </div>
+
+    <div class="quick-tags">
+        <button type="button" onclick="sendQuick('What is this website about?')">About</button>
+        <button type="button" onclick="sendQuick('Explain the islam and engineering section')">Islam & Eng</button>
+        <button type="button" onclick="sendQuick('How do I present this?')">Presentation</button>
+        <button type="button" onclick="sendQuick('Open the calculator')">Calculator</button>
+    </div>
+
+    <div class="chat-input">
+        <input id="chatInput" type="text" placeholder="Ask Barakah AI..." />
+        <button class="btn btn-primary" type="button" onclick="chatReply()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <div class="brand">
+            <div class="brand-badge"><i class="fa-solid fa-compass-drafting"></i></div>
+            <div>
+                <h1>Barakah Engineering</h1>
+                <span>Faith · Ethics · Infrastructure</span>
+            </div>
+        </div>
+
+        <div class="nav-links" id="desktopNav">
+            <a href="#about">About</a>
+            <a href="#islam">Islam & Engineering</a>
+            <a href="#learn">Learn</a>
+            <a href="#tools">Tools</a>
+            <a href="#projects">Projects</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+            <a href="Al-Mahdi-Atara-CV.pdf" download class="btn btn-secondary" style="padding:10px 14px;">
+                <i class="fa-solid fa-download"></i> CV
+            </a>
+            <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#islam" onclick="toggleMenu()">Islam & Engineering</a>
+        <a href="#learn" onclick="toggleMenu()">Learn</a>
+        <a href="#tools" onclick="toggleMenu()">Tools</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
+        <a href="#blog" onclick="toggleMenu()">Blog</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="Al-Mahdi-Atara-CV.pdf" download onclick="toggleMenu()">Download CV</a>
+        <a href="#" onclick="toggleTheme(); toggleMenu(); return false;">Toggle Theme</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-copy" data-aos="fade-up">
+        <div class="kicker"><i class="fa-solid fa-star"></i> Built by Al-Mahdi A. Atara · WMSU</div>
+        <h2>Building with <span class="accent">Barakah</span>, Guided by Faith</h2>
+        <p>
+            Barakah Engineering connects civil engineering with Islamic values such as Amanah, Khalifah, and Taharah.
+            It is designed to look modern, professional, and student-made.
+        </p>
+        <div class="hero-actions">
+            <a href="#learn" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i> Explore</a>
+            <a href="#about" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Learn More</a>
+            <a href="Al-Mahdi-Atara-CV.pdf" download class="btn btn-secondary"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><strong>Faith-Based</strong><span>Engineering with purpose</span></div>
+            <div class="stat"><strong>Student-Made</strong><span>Designed for class use</span></div>
+            <div class="stat"><strong>Interactive</strong><span>AI, tools, and motion</span></div>
+        </div>
+    </div>
+
+    <div class="hero-panel" data-aos="zoom-in" data-aos-delay="150">
+        <div class="floating-orb orb1"></div>
+        <div class="floating-orb orb2"></div>
+        <div class="hero-card">
+            <div class="hero-card-top">
+                <div class="pill">God Mode Edition</div>
+                <i class="fa-solid fa-mosque"></i>
+            </div>
+
+            <h3 style="margin-bottom:10px;">Core Principles</h3>
+            <p style="color:var(--muted); line-height:1.8;">
+                Amanah means responsibility, Khalifah means stewardship, and Taharah means cleanliness.
+            </p>
+
+            <div class="mini-list">
+                <div class="mini-item">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <div><strong>Safety</strong><br><span style="color:var(--muted); font-size:0.9rem;">Construction as trust</span></div>
+                </div>
+                <div class="mini-item">
+                    <i class="fa-solid fa-leaf"></i>
+                    <div><strong>Sustainability</strong><br><span style="color:var(--muted); font-size:0.9rem;">Protecting the environment</span></div>
+                </div>
+                <div class="mini-item">
+                    <i class="fa-solid fa-water"></i>
+                    <div><strong>Clean Systems</strong><br><span style="color:var(--muted); font-size:0.9rem;">Practical and hygienic design</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pattern-header" data-aos="fade-up" data-aos-delay="250">
+            <div class="pattern-content">
+                <h3>Animated Islamic Pattern Header</h3>
+                <p>Subtle geometric movement for a premium faith-inspired look.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <h2 class="section-title" data-aos="fade-up">About</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        This website is created by Al-Mahdi A. Atara, a Civil Engineering student from Western Mindanao State University.
+        The goal is to inspire faith-driven, responsible, and future-ready engineers.
+    </p>
+
+    <div class="grid">
+        <div class="card" data-aos="fade-up">
+            <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+            <h3>Mission</h3>
+            <p>To inspire ethical and faith-driven engineers who build with integrity and purpose.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="120">
+            <div class="feature-icon"><i class="fa-solid fa-eye"></i></div>
+            <h3>Vision</h3>
+            <p>To promote sustainable and responsible infrastructure development that benefits communities.</p>
+        </div>
+        <div class="card" data-aos="fade-up" data-aos-delay="240">
+            <div class="feature-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3>Identity</h3>
+            <p>Student-made, professional-looking, and built to present both technical and Islamic values.</p>
+        </div>
+    </div>
+</section>
+
+<section id="islam">
+    <h2 class="section-title" data-aos="fade-up">Islam & Engineering</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Islamic principles can guide engineering practice by shaping how we design, build, and serve people.
+    </p>
+
+    <div class="grid">
+        <div class="card" data-aos="zoom-in">
+            <div class="feature-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Safety</h3>
+            <p>Safety in construction is part of Amanah, because human life must be protected.</p>
+        </div>
+        <div class="card" data-aos="zoom-in" data-aos-delay="120">
+            <div class="feature-icon"><i class="fa-solid fa-tree"></i></div>
+            <h3>Environmental Responsibility</h3>
+            <p>Khalifah teaches us to care for the earth and avoid harmful development practices.</p>
+        </div>
+        <div class="card" data-aos="zoom-in" data-aos-delay="240">
+            <div class="feature-icon"><i class="fa-solid fa-broom"></i></div>
+            <h3>Clean Design</h3>
+            <p>Taharah reflects cleanliness in water systems, public spaces, and infrastructure planning.</p>
+        </div>
+    </div>
+</section>
+
+<section id="learn">
+    <h2 class="section-title" data-aos="fade-up">Learn</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Simple topics for students who want to connect civil engineering with real-world and faith-based understanding.
+    </p>
+
+    <div class="two-col">
+        <div class="grid">
+            <div class="card" data-aos="fade-right">
+                <div class="feature-icon"><i class="fa-solid fa-building"></i></div>
+                <h3>Structures</h3>
+                <p>Basic ideas about beams, columns, foundations, and how buildings stand strong.</p>
+            </div>
+            <div class="card" data-aos="fade-right" data-aos-delay="120">
+                <div class="feature-icon"><i class="fa-solid fa-industry"></i></div>
+                <h3>Materials</h3>
+                <p>Learn about concrete, steel, aggregates, and how materials affect performance.</p>
+            </div>
+            <div class="card" data-aos="fade-right" data-aos-delay="240">
+                <div class="feature-icon"><i class="fa-solid fa-water"></i></div>
+                <h3>Water Systems</h3>
+                <p>Introduction to drainage, purification, sanitation, and water distribution systems.</p>
+            </div>
+            <div class="card" data-aos="fade-right" data-aos-delay="360">
+                <div class="feature-icon"><i class="fa-solid fa-mosque"></i></div>
+                <h3>Mosque Architecture</h3>
+                <p>How Islamic design principles influence beauty, function, and community use.</p>
+            </div>
+        </div>
+
+        <div class="card" data-aos="fade-left">
+            <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+            <h3>Sustainable Engineering</h3>
+            <p style="margin-bottom:14px;">
+                Sustainable engineering focuses on long-term solutions that protect the environment and support future generations.
+            </p>
+            <p style="margin-bottom:14px;">Examples include:</p>
+            <p>• Eco-friendly building design</p>
+            <p>• Safe water purification</p>
+            <p>• Better waste management</p>
+            <p>• Efficient use of natural resources</p>
+        </div>
+    </div>
+</section>
+
+<section id="tools">
+    <h2 class="section-title" data-aos="fade-up">Engineering Tools</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Lightweight interactive tools to make the site feel alive and useful.
+    </p>
+
+    <div class="grid">
+        <div class="card" data-aos="fade-up">
+            <div class="feature-icon"><i class="fa-solid fa-calculator"></i></div>
+            <h3>Concrete Volume Calculator</h3>
+            <p>Enter length, width, and thickness to estimate slab volume in cubic meters.</p>
+            <div class="panel-tools">
+                <input id="len" type="number" placeholder="Length (m)">
+                <input id="wid" type="number" placeholder="Width (m)">
+                <input id="thk" type="number" placeholder="Thickness (m)">
+                <div class="tool-row">
+                    <button class="btn btn-primary" type="button" onclick="calcConcrete()">Calculate</button>
+                    <button class="btn btn-secondary" type="button" onclick="clearCalc()">Clear</button>
+                </div>
+                <div class="tool-output" id="calcOut">Result will appear here.</div>
+            </div>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="120">
+            <div class="feature-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+            <h3>Quick Formula Notes</h3>
+            <p style="margin-bottom:12px;">Volume = length × width × thickness</p>
+            <p style="margin-bottom:12px;">Area = length × width</p>
+            <p style="margin-bottom:12px;">Slope = rise ÷ run</p>
+            <p>Use these quick notes during reviews or class demos.</p>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2 class="section-title" data-aos="fade-up">Projects & Research</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Student-friendly project ideas that are practical, educational, and meaningful.
+    </p>
+
+    <div class="grid">
+        <div class="card" data-aos="flip-left">
+            <div class="feature-icon"><i class="fa-solid fa-house"></i></div>
+            <h3>Eco-Friendly Housing</h3>
+            <p>Affordable and sustainable housing concepts for local communities.</p>
+        </div>
+        <div class="card" data-aos="flip-left" data-aos-delay="120">
+            <div class="feature-icon"><i class="fa-solid fa-filter"></i></div>
+            <h3>Water Filtration System</h3>
+            <p>Simple and practical systems for improving water quality in rural areas.</p>
+        </div>
+        <div class="card" data-aos="flip-left" data-aos-delay="240">
+            <div class="feature-icon"><i class="fa-solid fa-seedling"></i></div>
+            <h3>Malunggay Seed Purification</h3>
+            <p>A research concept using Malunggay seeds for eco-friendly water purification.</p>
+        </div>
+    </div>
+</section>
+
+<section id="blog">
+    <h2 class="section-title" data-aos="fade-up">Blog</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Sample article titles for the website.
+    </p>
+
+    <div class="blog-list">
+        <div class="blog-item" data-aos="fade-up">
+            <div>
+                <strong>Engineering as an Act of Worship</strong><br>
+                <span>How intention gives engineering deeper meaning.</span>
+            </div>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="blog-item" data-aos="fade-up" data-aos-delay="120">
+            <div>
+                <strong>Why Safety is an Amanah</strong><br>
+                <span>Why protecting people is part of our responsibility.</span>
+            </div>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="blog-item" data-aos="fade-up" data-aos-delay="240">
+            <div>
+                <strong>Building Sustainably for the Ummah</strong><br>
+                <span>How engineering choices can help communities long-term.</span>
+            </div>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 class="section-title" data-aos="fade-up">Contact</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        You can connect with me through email or social media, or send a message directly here.
+    </p>
+
+    <div class="contact-grid">
+        <div class="card" data-aos="fade-right">
+            <div class="feature-icon"><i class="fa-solid fa-address-card"></i></div>
+            <h3>Creator Info</h3>
+            <p><strong>Al-Mahdi A. Atara</strong></p>
+            <p style="margin-top:10px;">
+                <a href="mailto:almhadiatara14@gmail.com" style="color: var(--accent); text-decoration:none;">almhadiatara14@gmail.com</a>
+            </p>
+
+            <div class="socials">
+                <a href="https://www.facebook.com/share/1DqsBye5R9/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                <a href="https://github.com/almahdiatara14-eng" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://www.instagram.com/wang_lingz04?igsh=Y2Vmc2UyMmp5bWpu&utm_source=qr" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            </div>
+
+            <div style="margin-top:18px;">
+                <a href="Al-Mahdi-Atara-CV.pdf" download class="btn btn-primary">
+                    <i class="fa-solid fa-file-arrow-down"></i> Download CV
+                </a>
+            </div>
+        </div>
+
+        <div class="card" data-aos="fade-left">
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
+                <div>
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" placeholder="Your name" required>
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" placeholder="Your email" required>
+                </div>
+
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div class="footer">© 2026 Barakah Engineering - Built with purpose and faith.</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 1000, once: true, offset: 80 });
+
+const loader = document.getElementById('loader');
+const intro = document.getElementById('intro');
+const introText = document.getElementById('introText');
+const chatWidget = document.getElementById('chatWidget');
+const chatMessages = document.getElementById('chatMessages');
+
+function typeIntro(text, el, speed=70){
+    let i = 0;
+    el.textContent = "";
+    const timer = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) clearInterval(timer);
+    }, speed);
+}
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        loader.classList.add('hide');
+        intro.classList.add('show');
+        typeIntro('Barakah Engineering', introText, 75);
+        setTimeout(() => {
+            if (intro.classList.contains('show')) enterSite();
+        }, 5200);
+    }, 1100);
+});
+
+function enterSite(){
+    intro.classList.remove('show');
+}
+
+function skipIntro(){
+    enterSite();
+}
+
+function toggleTheme(){
+    document.body.classList.toggle('light');
+    const icon = document.querySelector('.theme-btn i');
+    localStorage.setItem('barakah-theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    icon.className = document.body.classList.contains('light') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+}
+
+(function restoreTheme(){
+    const saved = localStorage.getItem('barakah-theme');
+    if (saved === 'light'){
+        document.body.classList.add('light');
+        const icon = document.querySelector('.theme-btn i');
+        if (icon) icon.className = 'fa-solid fa-sun';
+    }
+})();
+
+function toggleMenu(){
+    document.getElementById('mobileDrawer').classList.toggle('open');
+}
+
+window.addEventListener('scroll', () => {
+    const top = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (top / height) * 100;
+    document.getElementById('progress').style.width = scrolled + '%';
+});
+
+document.getElementById('contactForm').addEventListener('submit', function (e){
+    e.preventDefault();
+    const form = this;
+    const toast = document.getElementById('toast');
+    if (!form.checkValidity()){
+        form.reportValidity();
+        return;
+    }
+    toast.textContent = 'Message ready to send. Connect Formspree ID first.';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
+    form.reset();
+});
+
+function calcConcrete(){
+    const l = parseFloat(document.getElementById('len').value);
+    const w = parseFloat(document.getElementById('wid').value);
+    const t = parseFloat(document.getElementById('thk').value);
+    const out = document.getElementById('calcOut');
+    if ([l,w,t].some(v => Number.isNaN(v) || v <= 0)){
+        out.textContent = 'Please enter valid positive values.';
+        return;
+    }
+    const volume = l * w * t;
+    out.textContent = `Estimated volume: ${volume.toFixed(3)} m³`;
+}
+
+function clearCalc(){
+    document.getElementById('len').value = '';
+    document.getElementById('wid').value = '';
+    document.getElementById('thk').value = '';
+    document.getElementById('calcOut').textContent = 'Result will appear here.';
+}
+
+function toggleChat(){
+    chatWidget.classList.toggle('open');
+    if (chatWidget.classList.contains('open')){
+        document.getElementById('chatInput').focus();
+    }
+}
+
+function addMessage(text, who='bot'){
+    const div = document.createElement('div');
+    div.className = `msg ${who}`;
+    div.textContent = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function chatReply(){
+    const input = document.getElementById('chatInput');
+    const q = input.value.trim();
+    if (!q) return;
+    addMessage(q, 'user');
+    input.value = '';
+    const lower = q.toLowerCase();
+
+    let answer = 'I can explain the website sections, the philosophy behind the design, or the engineering tools.';
+    if (lower.includes('about')) answer = 'This site is a student-made portfolio about civil engineering blended with Islamic values and purpose-driven design.';
+    else if (lower.includes('islam')) answer = 'The Islam & Engineering section shows how Amanah, Khalifah, and Taharah guide safe, sustainable, and clean infrastructure.';
+    else if (lower.includes('presentation') || lower.includes('present')) answer = 'Start with the concept, then explain the tools used: HTML for structure, CSS for design, JavaScript for interactivity, and AOS for animations.';
+    else if (lower.includes('calculator') || lower.includes('tool')) answer = 'Open the Engineering Tools section. It includes a concrete volume calculator and quick formula notes.';
+    else if (lower.includes('contact')) answer = 'The contact section contains your email, socials, and a form placeholder connected to Formspree.';
+    else if (lower.includes('cv')) answer = 'The Download CV button links to your PDF resume file in the project folder.';
+    else if (lower.includes('hello') || lower.includes('assalamu') || lower.includes('salam')) answer = 'Wa alaikum assalam. Barakah Engineering is ready for class presentation mode.';
+
+    setTimeout(() => addMessage(answer, 'bot'), 450);
+}
+
+function sendQuick(text){
+    if (!chatWidget.classList.contains('open')) toggleChat();
+    document.getElementById('chatInput').value = text;
+    chatReply();
+}
+
+document.getElementById('chatInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){
+        e.preventDefault();
+        chatReply();
+    }
+});
+
+function initParticles(){
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+
+    function resize(){
+        w = canvas.width = window.innerWidth * devicePixelRatio;
+        h = canvas.height = window.innerHeight * devicePixelRatio;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        const count = Math.max(28, Math.min(70, Math.floor(window.innerWidth / 24)));
+        particles = Array.from({length: count}, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: (Math.random() * 2.2 + 0.8) * devicePixelRatio,
+            vx: (Math.random() - 0.5) * 0.35 * devicePixelRatio,
+            vy: (Math.random() - 0.5) * 0.35 * devicePixelRatio,
+            a: Math.random() * Math.PI * 2
+        }));
+    }
+
+    function draw(){
+        ctx.clearRect(0,0,w,h);
+
+        for (const p of particles){
+            p.x += p.vx;
+            p.y += p.vy;
+            p.a += 0.01;
+            if (p.x < -20) p.x = w + 20;
+            if (p.x > w + 20) p.x = -20;
+            if (p.y < -20) p.y = h + 20;
+            if (p.y > h + 20) p.y = -20;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r + Math.sin(p.a) * 0.4 * devicePixelRatio, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(245,197,66,0.28)';
+            ctx.fill();
+        }
+
+        for (let i = 0; i < particles.length; i++){
+            for (let j = i + 1; j < particles.length; j++){
+                const a = particles[i], b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 140 * devicePixelRatio){
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    const alpha = 0.08 * (1 - dist / (140 * devicePixelRatio));
+                    ctx.strokeStyle = `rgba(17,163,106,${alpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    draw();
+}
+initParticles();
+</script>
+
+</body>
+</html>
